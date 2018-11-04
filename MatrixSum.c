@@ -3,14 +3,12 @@
 #include <stdlib.h>
 
 #define M 3
-#define K 2
 #define N 3
 #define NUM_THREADS 10
 
-int A[M][K] = {{1, 4}, {2, 5}, {3, 6}};
-int B[K][N] = {{8, 7, 6}, {5, 4, 3}};
+int A[M][N] = {{1, 4,5}, {2, 5,3}, {3, 6,4}};
+int B[M][N] = {{8, 7, 6}, {5, 4, 3},{1,9,5}};
 int C[M][N];
-
 struct v
 {
     int i; /* row */
@@ -58,13 +56,12 @@ int main(int argc, char *argv[])
 void *runner(void *param)
 {
     struct v *data = param; // the structure that holds our data
-    int n, sum = 0;         //the counter and sum
+    //the counter and sum
 
     //Row multiplied by column
-    for (n = 0; n < K; n++)
-    {
-       C[data->i][data->j] = A[data->i][n] +B[n][data->j];
-    }
+
+       C[data->i][data->j] = A[data->i][data->j] +B[data->i][data->j];
+
     //Exit the thread
     pthread_exit(0);
 }
